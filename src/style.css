@@ -1,3 +1,51 @@
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  margin: 0;
+}
+
+body > section {
+  flex: 1;
+}
+
+header {
+  background-image: url(images/th.png);
+  text-shadow: 1px 1px 2px #000000;
+}
+
+#header-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: linear-gradient(45deg, #0798abfa, transparent);
+}
+
+header img {
+  border: 4px solid white;
+  border-radius: 50%;
+  background-color: #ffffff90;
+  margin: 4px;
+}
+
 h1 {
-  color: blue;
+  margin: 2px;
+  color: white;
+}
+
+h2 {
+  margin: 2px;
+  font-size: 1.2em;
+  color: white;
+}
+
+footer {
+  background-color: rgba(13, 122, 129, 0.938);
+  color: white;
+  text-align: center;
+  padding: 8px;
 }
