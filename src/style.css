@@ -57,6 +57,15 @@ footer a {
   color: white;
 }
 
+.toolBar {
+  display: flex;
+  padding: 5px;
+}
+
+.toolBarFill {
+  flex: 1;
+}
+
 #teamsTable {
   border-collapse: collapse;
   width: 100%;

@@ -21,9 +21,21 @@
     </header>
 
     <section id="main">
+      <div class="toolBar">
+        <div>
+          <button id="remove">❌Remove selected</button>
+        </div>
+        <div class="toolBarFill"></div>
+        <div>
+          <input name="search" placeholder="Search" id="search" />
+          🔎
+        </div>
+      </div>
+
       <table id="teamsTable">
         <thead>
           <tr>
+            <th><input type="checkbox" /></th>
             <th>Promotion</th>
             <th>Members</th>
             <th>Project Name</th>
@@ -34,29 +46,39 @@
 
         <tbody>
           <tr>
+            <td><input type="checkbox" /></td>
             <td>FastTrackIT</td>
             <td>Nicolae Matei, Andrei Ille</td>
             <td>Teams Networking (CRUD*)</td>
             <td><a href="https://github.com/nmatei/teams-networking">nmatei/teams-networking</a></td>
-            <td>x</td>
+            <td>✖ ✎</td>
           </tr>
           <tr>
+            <td><input type="checkbox" /></td>
             <td>2021-won1</td>
             <td>Coman Oana, Adina Bîlc, Bianca Vesa</td>
             <td>🚑 Medical Inventory store</td>
             <td><a href="https://github.com/comanoana/medstore">comanoana/medstore</a></td>
-            <td>x</td>
+            <td>✖ ✎</td>
           </tr>
           <tr>
+            <td><input type="checkbox" /></td>
             <td>2021-won1</td>
             <td>Cristi Cosma, Reka Kovacs, Simona Glodean</td>
             <td>📃 DOCS Generator</td>
             <td><a href="https://github.com/CristiCozma/docsgenerator">CristiCozma/docsgenerator</a></td>
-            <td>x</td>
+            <td>✖ ✎</td>
           </tr>
         </tbody>
 
-        <tfoot></tfoot>
+        <tfoot>
+          <td><input type="checkbox" /></td>
+          <td><input type="text" name="promotion" placeholder="Enter promotion" /></td>
+          <td><input type="text" name="members" placeholder="Enter members" /></td>
+          <td><input type="text" name="name" placeholder="Enter project name" /></td>
+          <td><input type="text" name="url" placeholder="Enter project URL" /></td>
+          <td>💾 ✖</td>
+        </tfoot>
       </table>
     </section>
 
