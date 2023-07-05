@@ -59,7 +59,8 @@ footer a {
 
 .toolBar {
   display: flex;
-  padding: 5px;
+  margin-bottom: 10px;
+  align-items: stretch;
 }
 
 .toolBarFill {
