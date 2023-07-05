@@ -1,5 +1,20 @@
 import "./style.css";
 
+function $(selector) {
+  return document.querySelector(selector);
+}
+
+function createTeamRequest(team) {
+  // POST teams-json/create
+  return fetch("http://localhost:3000/teams-json/create", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(team)
+  }).then(r => r.json());
+}
+
 function getTeamAsHTML(team) {
   return `<tr>
   <td>${team.promotion}</td>
@@ -12,9 +27,10 @@ function getTeamAsHTML(team) {
 
 function renderTeams(teams) {
   const htmlTeams = teams.map(getTeamAsHTML);
-  console.warn(htmlTeams);
-  document.querySelector("#teamsTable tbody").innerHTML = htmlTeams.join("");
+  //console.warn(htmlTeams);
+  $("#teamsTable tbody").innerHTML = htmlTeams.join("");
 }
+
 function loadTeams() {
   //here should be teams.json
   fetch("http://localhost:3000/teams-json")
@@ -22,4 +38,31 @@ function loadTeams() {
     .then(renderTeams);
 }
 
+function onSubmit(e) {
+  //console.warn("submit", e);
+  e.preventDefault();
+
+  const members = $("#members").value;
+  const name = $("input[name=name]").value;
+  const url = $("input[name=url]").value;
+  const team = {
+    promotion: $("#promotion").value,
+    members: members,
+    name,
+    url
+  };
+  console.warn(team);
+  createTeamRequest(team).then(status => {
+    console.warn("created", status);
+    if (status.success) {
+      window.location.reload();
+    }
+  });
+}
+
+function initEvents() {
+  $("#teamsForm").addEventListener("submit", onSubmit);
+}
+
 loadTeams();
+initEvents();
