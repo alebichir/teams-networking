@@ -16,7 +16,8 @@ function renderTeams(teams) {
   document.querySelector("#teamsTable tbody").innerHTML = htmlTeams.join("");
 }
 function loadTeams() {
-  fetch("teams.json")
+  //here should be teams.json
+  fetch("http://localhost:3000/teams-json")
     .then(r => r.json())
     .then(renderTeams);
 }

@@ -27,28 +27,34 @@
         <input name="search" placeholder="Search" id="search" />
         <label for="search">🔎</label>
       </div>
+      <form action="secretara" method="get">
+        <table id="teamsTable">
+          <thead>
+            <tr>
+              <th>Promotion</th>
+              <th>Members</th>
+              <th>Project Name</th>
+              <th>Project URL</th>
+              <th></th>
+            </tr>
+          </thead>
 
-      <table id="teamsTable">
-        <thead>
-          <tr>
-            <th>Promotion</th>
-            <th>Members</th>
-            <th>Project Name</th>
-            <th>Project URL</th>
-            <th></th>
-          </tr>
-        </thead>
+          <tbody></tbody>
 
-        <tbody></tbody>
-
-        <tfoot>
-          <td><input type="text" name="promotion" placeholder="Enter promotion" /></td>
-          <td><input type="text" name="members" placeholder="Enter members" /></td>
-          <td><input type="text" name="name" placeholder="Enter project name" /></td>
-          <td><input type="text" name="url" placeholder="Enter project URL" /></td>
-          <td>💾 ✖</td>
-        </tfoot>
-      </table>
+          <tfoot>
+            <tr>
+              <td><input type="text" name="promotion" id="promotion" placeholder="Enter Promotion" required /></td>
+              <td><input type="text" name="members" id="members" placeholder="Enter Members" required /></td>
+              <td><input type="text" name="name" id="name" placeholder="Enter Name" required /></td>
+              <td><input type="text" name="url" id="url" placeholder="Enter URL" required /></td>
+              <td>
+                <button type="submit">💾</button>
+                <button type="reset">✖</button>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </form>
     </section>
 
     <footer>

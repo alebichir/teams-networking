@@ -45,18 +45,6 @@ h2 {
   color: white;
 }
 
-footer {
-  background-color: rgba(13, 122, 129, 0.938);
-  color: white;
-  text-align: center;
-  padding: 8px;
-}
-
-footer a {
-  text-decoration: none;
-  color: white;
-}
-
 .toolBar {
   display: flex;
   margin-bottom: 10px;
@@ -85,4 +73,24 @@ footer a {
 
 #teamsTable tr:nth-child(even) {
   background-color: #f2f2f2;
+}
+
+#teamsTable tfoot input {
+  width: 100%;
+}
+
+#teamsTable tfoot input:not([type="image" i]) {
+  box-sizing: border-box;
+}
+
+footer {
+  background-color: rgba(13, 122, 129, 0.938);
+  color: white;
+  text-align: center;
+  padding: 8px;
+}
+
+footer a {
+  text-decoration: none;
+  color: white;
 }
