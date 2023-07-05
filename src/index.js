@@ -5,7 +5,7 @@ function getTeamAsHTML(team) {
   <td>${team.promotion}</td>
   <td>${team.members}</td>
   <td>${team.name}</td>
-  <td><a href="${team.url}">${team.aliasurl}</a></td>
+  <td>${team.url}</td>
   <td>✖ ✎</td>
 </tr>`;
 }
