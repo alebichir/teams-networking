@@ -94,3 +94,19 @@ footer a {
   text-decoration: none;
   color: white;
 }
+
+.edit-btn,
+.delete-btn {
+  color: #0263d8;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  text-decoration: undeline;
+  color: #b90303;
+}
+
+.edit-btn:hover {
+  color: #039903;
+  text-decoration: underline;
+}
