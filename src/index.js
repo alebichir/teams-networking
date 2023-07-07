@@ -1,11 +1,12 @@
 import "./style.css";
 
+let allTeams = [];
+
 function $(selector) {
   return document.querySelector(selector);
 }
 
 function createTeamRequest(team) {
-  // POST teams-json/create
   return fetch("http://localhost:3000/teams-json/create", {
     method: "POST",
     headers: {
@@ -48,7 +49,10 @@ function loadTeams() {
   //here should be teams.json
   fetch("http://localhost:3000/teams-json")
     .then(r => r.json())
-    .then(renderTeams);
+    .then(teams => {
+      allTeams = teams;
+      renderTeams(teams);
+    });
 }
 
 function onSubmit(e) {
@@ -73,6 +77,16 @@ function onSubmit(e) {
   });
 }
 
+function startEdit(id) {
+  console.warn("edit %o", id, allTeams);
+  const team = allTeams.find(team => team.id === id);
+  console.warn(team.promotion);
+  $("#promotion").value = team.promotion;
+  $("#members").value = team.members;
+  $("#name").value = team.name;
+  $("#url").value = team.url;
+}
+
 function initEvents() {
   $("#teamsForm").addEventListener("submit", onSubmit);
 
@@ -86,6 +100,9 @@ function initEvents() {
           window.location.reload();
         }
       });
+    } else if (e.target.matches("a.edit-btn")) {
+      const id = e.target.dataset.id;
+      startEdit(id);
     }
   });
 }
