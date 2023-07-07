@@ -75,12 +75,25 @@ h2 {
   background-color: #f2f2f2;
 }
 
-#teamsTable tfoot input {
+#teamsTable input[type="text"] {
   width: 100%;
+  box-sizing: border-box;
 }
 
-#teamsTable tfoot input:not([type="image" i]) {
-  box-sizing: border-box;
+.edit-btn,
+.delete-btn {
+  color: #0263d8;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  text-decoration: underline;
+  color: #b90303;
+}
+
+.edit-btn:hover {
+  color: #039903;
+  text-decoration: underline;
 }
 
 footer {
@@ -93,20 +106,4 @@ footer {
 footer a {
   text-decoration: none;
   color: white;
-}
-
-.edit-btn,
-.delete-btn {
-  color: #0263d8;
-  cursor: pointer;
-}
-
-.delete-btn:hover {
-  text-decoration: undeline;
-  color: #b90303;
-}
-
-.edit-btn:hover {
-  color: #039903;
-  text-decoration: underline;
 }
