@@ -58,12 +58,18 @@ h2 {
 #teamsTable {
   border-collapse: collapse;
   width: 100%;
+  table-layout: fixed;
 }
 
 #teamsTable th,
 #teamsTable td {
-  border: 1px solid #057988;
   padding: 6px;
+  border: 1px solid #057988;
+  line-height: 23px;
+  /* word-break: break-all; */
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 #teamsTable th {
@@ -80,10 +86,27 @@ h2 {
   box-sizing: border-box;
 }
 
+.table-actions {
+  width: 90px;
+}
+
+.action-btn {
+  min-width: 34px;
+  cursor: pointer;
+}
+
 .edit-btn,
 .delete-btn {
   color: #0263d8;
-  cursor: pointer;
+  display: none;
+}
+
+#teamsTable tr:hover .edit-btn {
+  display: inline-block;
+}
+
+#teamsTable tr:hover .delete-btn {
+  display: inline-block;
 }
 
 .delete-btn:hover {
