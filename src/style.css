@@ -65,7 +65,7 @@ h2 {
 #teamsTable td {
   padding: 6px;
   border: 1px solid #057988;
-  line-height: 23px;
+  line-height: 25px;
   /* word-break: break-all; */
   white-space: nowrap;
   text-overflow: ellipsis;
