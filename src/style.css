@@ -81,7 +81,7 @@ h2 {
   background-color: #f2f2f2;
 }
 
-#teamsTable input[type="text"] {
+#teamsTable input:not([type="checkbox"]) {
   width: 100%;
   box-sizing: border-box;
 }
