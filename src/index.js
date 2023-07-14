@@ -164,9 +164,10 @@ function setInputsDisable(disabled) {
 }
 
 function filterElements(teams, search) {
+  search = search.toLowerCase();
   return teams.filter(team => {
     //console.info("search %o in %o", search, team.promotion);
-    return team.promotion.includes(search);
+    return team.promotion.toLowerCase().includes(search);
   });
 }
 
@@ -174,7 +175,7 @@ function initEvents() {
   $("#search").addEventListener("input", e => {
     const search = e.target.value;
     const teams = filterElements(allTeams, search);
-    //console.info("search", search, teams);
+    console.info("search", search, teams);
     renderTeams(teams);
   });
   $("#teamsForm").addEventListener("submit", onSubmit);
@@ -208,3 +209,18 @@ function initEvents() {
 
 loadTeams();
 initEvents();
+
+// function lock1(locked) {
+//   console.info("lock1");
+//   return locked;
+// }
+
+// function lock2(locked) {
+//   console.info("lock2");
+//   return locked;
+// }
+// if (lock1(false) && lock2(true)) {
+//   console.info("we are ok");
+// } else {
+//   console.warn("we are not ok");
+// }
