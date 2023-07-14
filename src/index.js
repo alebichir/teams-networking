@@ -17,14 +17,22 @@ function createTeamRequest(team) {
   }).then(r => r.json());
 }
 
-function deleteTeamRequest(id) {
+function deleteTeamRequest(id, callback) {
   return fetch("http://localhost:3000/teams-json/delete", {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({ id })
-  }).then(r => r.json());
+  })
+    .then(r => r.json())
+    .then(status => {
+      //console.info("delete status", status, typeof callback);
+      if (typeof callback === "function") {
+        callback(status);
+      }
+      return status;
+    });
 }
 
 function updateTeamRequest(team) {
@@ -167,7 +175,12 @@ function filterElements(teams, search) {
   search = search.toLowerCase();
   return teams.filter(team => {
     //console.info("search %o in %o", search, team.promotion);
-    return team.promotion.toLowerCase().includes(search);
+    return (
+      team.promotion.toLowerCase().includes(search) ||
+      team.members.toLowerCase().includes(search) ||
+      team.name.toLowerCase().includes(search) ||
+      team.url.toLowerCase().includes(search)
+    );
   });
 }
 
@@ -193,8 +206,8 @@ function initEvents() {
     if (e.target.matches("button.delete-btn")) {
       const id = e.target.dataset.id;
       console.warn("delete %o", id);
-      deleteTeamRequest(id).then(status => {
-        //console.info("delete status %o", status);
+      deleteTeamRequest(id, status => {
+        console.info("delete callback %o", status);
         if (status.success) {
           //window.location.reload();
           loadTeams();
@@ -219,7 +232,11 @@ initEvents();
 //   console.info("lock2");
 //   return locked;
 // }
-// if (lock1(false) && lock2(true)) {
+
+// var l1 = lock1(false);
+// var l2 = lock2(false);
+
+// if (l1 && l2) {
 //   console.info("we are ok");
 // } else {
 //   console.warn("we are not ok");
