@@ -143,7 +143,11 @@ function onSubmit(e) {
       console.warn("created", status);
       if (status.success) {
         //window.location.reload();
-        loadTeams();
+        //loadTeams();
+        team.id = status.id;
+        allTeams.push(team);
+        renderTeams(allTeams);
+        //console.info(allTeams);
         $("#teamsForm").reset();
       }
     });
