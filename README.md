@@ -26,3 +26,11 @@ In current project run:
 ```sh
 npm start
 ```
+
+## Periodical actions
+
+```sh
+npm run build
+```
+
+Then commit changest to git

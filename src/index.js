@@ -101,8 +101,13 @@ function addTitleToOverflowCells() {
 }
 
 function loadTeams() {
+  let url = "http://localhost:3000/teams-json";
   //here should be teams.json
-  fetch("http://localhost:3000/teams-json")
+  if (window.location.host === "alebichir.github.io") {
+    url = "teams.json";
+    console.info("we are on git hub we will display mock data %o", url);
+  }
+  fetch(url)
     .then(r => r.json())
     .then(teams => {
       allTeams = teams;
