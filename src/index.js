@@ -49,6 +49,7 @@ function getTeamAsHTML(team) {
   const url = team.url;
   const displayUrl = url.startsWith("https://github.com/") ? url.substring(19) : url;
   return `<tr>
+  <td><input type="checkbox" name="selected"></td>
   <td>${team.promotion}</td>
   <td>${team.members}</td>
   <td>${team.name}</td>
@@ -64,6 +65,7 @@ function getTeamAsHTML(team) {
 
 function getTeamAsHTMLInputs(team) {
   return `<tr>
+    <td style="text-align: center"><input type="checkbox" name="selected"></td>
     <td><input value="${team.promotion}" type="text" name="promotion" placeholder="Enter Promotion" required /></td>
     <td><input value="${team.members}" type="text" name="members" placeholder="Enter Members" required /></td>
     <td><input value="${team.name}" type="text" name="name" placeholder="Enter Name" required /></td>
@@ -241,22 +243,3 @@ function initEvents() {
 
 loadTeams();
 initEvents();
-
-// function lock1(locked) {
-//   console.info("lock1");
-//   return locked;
-// }
-
-// function lock2(locked) {
-//   console.info("lock2");
-//   return locked;
-// }
-
-// var l1 = lock1(false);
-// var l2 = lock2(false);
-
-// if (l1 && l2) {
-//   console.info("we are ok");
-// } else {
-//   console.warn("we are not ok");
-// }
