@@ -1,10 +1,6 @@
 # Teams Networking
 
-## 🎞 Live Preview
-
-[teams-networking](https://alebichir.github.io/teams-networking/)
-
-## Install (one time usage)
+## 💠 Install (one time usage)
 
 ```sh
 git clone https://github.com/alebichir/teams-networking.git
@@ -12,7 +8,7 @@ cd teams-networking
 npm install
 ```
 
-## Start (daily usage)
+## 🌼 Start (daily usage)
 
 In other terminal open:
 
@@ -24,13 +20,32 @@ npm start
 In current project run:
 
 ```sh
+cd c/Proiecte/teams-networking
 npm start
 ```
 
-## Periodical actions
+## 🧩 Periodical actions
 
 ```sh
 npm run build
+
 ```
 
-Then commit changest to git
+```sh
+npm run deploy
+```
+
+Then commit changest to git!
+
+## 🐾 Features & Usage
+
+- [x] Teams Networking (CRUD\*) Operations
+  - [x] **C**reate
+  - [x] **R**ead
+  - [x] **U**pdate
+  - [x] **D**elete
+- [x] Search
+
+## 🎞 Live Preview
+
+[teams-networking](https://alebichir.github.io/teams-networking/)
