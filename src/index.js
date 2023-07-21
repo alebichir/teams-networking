@@ -45,12 +45,25 @@ function updateTeamRequest(team) {
   }).then(r => r.json());
 }
 
+function stringToColour(str) {
+  var hash = 0;
+  for (var i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  var colour = "#";
+  for (var i = 0; i < 3; i++) {
+    var value = (hash >> (i * 8)) & 0xff;
+    colour += ("00" + value.toString(16)).substr(-2);
+  }
+  return colour;
+}
+
 function getTeamAsHTML(team) {
   const url = team.url;
   const displayUrl = url.startsWith("https://github.com/") ? url.substring(19) : url;
   return `<tr>
   <td><input type="checkbox" name="selected"></td>
-  <td>${team.promotion}</td>
+  <td><span class="circle-bullet" style="background: ${stringToColour(team.promotion)};"></span>${team.promotion}</td>
   <td>${team.members}</td>
   <td>${team.name}</td>
   <td>
