@@ -138,3 +138,8 @@ footer a {
   margin-right: 10px;
   border-radius: 50%;
 }
+
+mark {
+  background: orange;
+  color: black;
+}

@@ -154,7 +154,7 @@ function onSubmit(e) {
 
   if (editId) {
     team.id = editId;
-    console.warn("update", team);
+    console.warn("update...", team);
     updateTeamRequest(team).then(status => {
       console.warn("updated", status);
       if (status.success) {
@@ -166,7 +166,7 @@ function onSubmit(e) {
       }
     });
   } else {
-    console.warn("create", team);
+    console.warn("create...", team);
     createTeamRequest(team).then(status => {
       console.warn("created", status);
       if (status.success) {
@@ -217,6 +217,7 @@ function filterElements(teams, search) {
   });
 }
 
+//use tag <mark>
 function initEvents() {
   $("#search").addEventListener("input", e => {
     const search = e.target.value;
