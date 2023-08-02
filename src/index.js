@@ -64,7 +64,7 @@ function getTeamAsHTML(team) {
   const { id, url } = team;
   const displayUrl = url.startsWith("https://github.com/") ? url.substring(19) : url;
   return `<tr>
-  <td><input type="checkbox" name="selected"></td>
+  <td style="text-align: center"><input type="checkbox" name="selected"></td>
   <td><span class="circle-bullet" style="background: ${stringToColour(team.promotion)};"></span>${team.promotion}</td>
   <td>${team.members}</td>
   <td>${team.name}</td>
@@ -284,3 +284,19 @@ function initEvents() {
 
 loadTeams();
 initEvents();
+
+function sleep(ms) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve();
+    }, ms);
+  });
+}
+
+$("#teamsForm").classList.add("loading-mask");
+
+sleep(5000).then(() => {
+  $("#teamsForm").classList.remove("loading-mask");
+});
+// const s = sleep(2000);
+// console.info("s", s);

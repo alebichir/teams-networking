@@ -17,14 +17,34 @@ if (l1 && l2) {
   console.warn("we are not ok");
 }
 
-const firstName = "a";
+// const firstName = "a";
 
+// function printInfo({ firstName }) {
+//   //{firstName} = p;
+
+//   console.info(p);
+// }
+
+// function printInfo(p) {}
+
+// printInfo(firstName); // p ={firstName};
+
+const person = {
+  firstName: "Nicolae",
+  lastName: "Matei",
+  age: 24
+};
+
+// const firstName = person.firstName;
+// const lastName = person.lastName;
+const { firstName, lastName } = person;
+
+// parameter Destructuring
 function printInfo({ firstName }) {
-  //{firstName} = p;
-
-  console.info(p);
+  console.info("before", firstName); //Nicolae
+  firstName = "changed"; // you can safety change it
+  console.warn("after", firstName); //changed
 }
 
-function printInfo(p) {}
-
-printInfo(firstName); // p ={firstName};
+printInfo(person);
+console.info("firstName", person.firstName); //Nicolae
