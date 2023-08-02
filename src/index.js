@@ -92,17 +92,22 @@ function getTeamAsHTMLInputs(team) {
 
 let previewTeams = [];
 function renderTeams(teams, editId) {
+  console.time("check");
   if (!editId && teams === previewTeams) {
-    console.warn("same teams already rendered");
+    //console.warn("same teams already rendered");
+    console.timeEnd("check");
     return;
   }
   if (!editId && teams.length === previewTeams.length) {
     const sameContent = previewTeams.every((team, i) => team === teams[i]);
     if (sameContent) {
-      console.info("sameContent");
+      //console.info("sameContent");
+      console.timeEnd("check");
       return;
     }
   }
+  console.timeEnd("check");
+
   console.time("render");
   previewTeams = teams;
   const htmlTeams = teams.map(team => {
@@ -169,11 +174,19 @@ function onSubmit(e) {
         allTeams = allTeams.map(t => {
           // console.info(t.id === team.id, t.promotion);
           if (t.id === team.id) {
-            return team;
+            // var a = { x: 1, y: 2 };
+            // var b = { y: 3, z: 4 };
+            // var c = { ...a, ...b }; -> 1 3 4
+            //console.warn("updated %o ->%o", t, team);
+            return {
+              ...t,
+              ...team
+            };
           }
           return t;
         });
         //allTeams = [...allTeams];
+        console.info(allTeams);
         renderTeams(allTeams);
         setInputsDisable(false);
         editId = "";
