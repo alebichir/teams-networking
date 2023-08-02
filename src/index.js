@@ -138,7 +138,7 @@ function loadTeams() {
     url = "data/teams.json";
     console.info("we are on git hub we will display mock data %o", url);
   }
-  fetch(url)
+  return fetch(url)
     .then(r => r.json())
     .then(teams => {
       allTeams = teams;
@@ -282,7 +282,10 @@ function initEvents() {
   });
 }
 
-loadTeams();
+$("#teamsForm").classList.add("loading-mask");
+loadTeams().then(() => {
+  $("#teamsForm").classList.remove("loading-mask");
+});
 initEvents();
 
 function sleep(ms) {
@@ -292,8 +295,6 @@ function sleep(ms) {
     }, ms);
   });
 }
-
-$("#teamsForm").classList.add("loading-mask");
 
 sleep(5000).then(() => {
   $("#teamsForm").classList.remove("loading-mask");
