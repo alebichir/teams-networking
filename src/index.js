@@ -78,13 +78,15 @@ function getTeamAsHTML(team) {
 </tr>`;
 }
 
-function getTeamAsHTMLInputs(team) {
+function getTeamAsHTMLInputs({ promotion, members, name, url }) {
+  //console.info("inputs", arguments[0]);
+  //const { promotion, members, name, url } = team;
   return `<tr>
     <td style="text-align: center"><input type="checkbox" name="selected"></td>
-    <td><input value="${team.promotion}" type="text" name="promotion" placeholder="Enter Promotion" required /></td>
-    <td><input value="${team.members}" type="text" name="members" placeholder="Enter Members" required /></td>
-    <td><input value="${team.name}" type="text" name="name" placeholder="Enter Name" required /></td>
-    <td><input value="${team.url}" type="text" name="url" placeholder="Enter URL" required /></td>
+    <td><input value="${promotion}" type="text" name="promotion" placeholder="Enter Promotion" required /></td>
+    <td><input value="${members}" type="text" name="members" placeholder="Enter Members" required /></td>
+    <td><input value="${name}" type="text" name="name" placeholder="Enter Name" required /></td>
+    <td><input value="${url}" type="text" name="url" placeholder="Enter URL" required /></td>
     <td>
       <button type="submit" class="action-btn" title="Save">💾</button>
       <button type="reset" class="action-btn" title="Cancel">✖</button>
@@ -169,9 +171,9 @@ function onSubmit(e) {
   if (editId) {
     team.id = editId;
     console.warn("update...", team);
-    updateTeamRequest(team).then(status => {
-      console.warn("updated", status);
-      if (status.success) {
+    updateTeamRequest(team).then(({ success }) => {
+      //console.warn("updated", status);
+      if (success) {
         //loadTeams();
         allTeams = allTeams.map(t => {
           // console.info(t.id === team.id, t.promotion);
@@ -196,10 +198,10 @@ function onSubmit(e) {
     });
   } else {
     console.warn("create...", team);
-    createTeamRequest(team).then(status => {
-      console.warn("created", status);
-      if (status.success) {
-        team.id = status.id;
+    createTeamRequest(team).then(({ success, id }) => {
+      //console.warn("created", status);
+      if (success) {
+        team.id = id;
         allTeams = [...allTeams, team];
         renderTeams(allTeams);
         $("#teamsForm").reset();
@@ -231,13 +233,13 @@ function setInputsDisable(disabled) {
 
 function filterElements(teams, search) {
   search = search.toLowerCase();
-  return teams.filter(team => {
+  return teams.filter(({ promotion, members, name, url }) => {
     //console.info("search %o in %o", search, team.promotion);
     return (
-      team.promotion.toLowerCase().includes(search) ||
-      team.members.toLowerCase().includes(search) ||
-      team.name.toLowerCase().includes(search) ||
-      team.url.toLowerCase().includes(search)
+      promotion.toLowerCase().includes(search) ||
+      members.toLowerCase().includes(search) ||
+      name.toLowerCase().includes(search) ||
+      url.toLowerCase().includes(search)
     );
   });
 }

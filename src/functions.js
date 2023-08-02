@@ -16,3 +16,15 @@ if (l1 && l2) {
 } else {
   console.warn("we are not ok");
 }
+
+const firstName = "a";
+
+function printInfo({ firstName }) {
+  //{firstName} = p;
+
+  console.info(p);
+}
+
+function printInfo(p) {}
+
+printInfo(firstName); // p ={firstName};
