@@ -1,46 +1,9 @@
 import "./style.css";
 import { $, mask, sleep, unmask } from "./utilities";
+import { createTeamRequest, deleteTeamRequest, updateTeamRequest, loadTeamsRequest } from "./middleware";
 
 let allTeams = [];
 let editId;
-
-function createTeamRequest(team) {
-  return fetch("http://localhost:3000/teams-json/create", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(team)
-  }).then(r => r.json());
-}
-
-function deleteTeamRequest(id, callback) {
-  return fetch("http://localhost:3000/teams-json/delete", {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ id })
-  })
-    .then(r => r.json())
-    .then(status => {
-      //console.info("delete status", status, typeof callback);
-      if (typeof callback === "function") {
-        callback(status);
-      }
-      return status;
-    });
-}
-
-function updateTeamRequest(team) {
-  return fetch("http://localhost:3000/teams-json/update", {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(team)
-  }).then(r => r.json());
-}
 
 function stringToColour(str) {
   var hash = 0;
@@ -129,18 +92,10 @@ function addTitleToOverflowCells() {
 }
 
 function loadTeams() {
-  let url = "http://localhost:3000/teams-json";
-  //here should be teams.json
-  if (window.location.host === "alebichir.github.io") {
-    url = "data/teams.json";
-    console.info("we are on git hub we will display mock data %o", url);
-  }
-  return fetch(url)
-    .then(r => r.json())
-    .then(teams => {
-      allTeams = teams;
-      renderTeams(teams);
-    });
+  return loadTeamsRequest().then(teams => {
+    allTeams = teams;
+    renderTeams(teams);
+  });
 }
 
 function getTeamValues(parent) {
@@ -287,6 +242,7 @@ initEvents();
 
 sleep(5000).then(() => {
   $("#teamsForm").classList.remove("loading-mask");
+  console.info("ready");
 });
 // const s = sleep(2000);
 // console.info("s", s);
