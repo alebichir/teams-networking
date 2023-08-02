@@ -91,11 +91,13 @@ function addTitleToOverflowCells() {
   });
 }
 
-function loadTeams() {
-  return loadTeamsRequest().then(teams => {
-    allTeams = teams;
-    renderTeams(teams);
-  });
+async function loadTeams() {
+  mask($("#teamsForm"));
+  const teams = await loadTeamsRequest();
+  console.warn("teams", teams);
+  allTeams = teams;
+  renderTeams(teams);
+  unmask($("#teamsForm"));
 }
 
 function getTeamValues(parent) {
@@ -151,7 +153,7 @@ function onSubmit(e) {
   } else {
     console.warn("create...", team);
     createTeamRequest(team).then(({ success, id }) => {
-      //console.warn("created", status);
+      console.warn("created!");
       if (success) {
         team.id = id;
         allTeams = [...allTeams, team];
@@ -159,6 +161,7 @@ function onSubmit(e) {
         $("#teamsForm").reset();
       }
     });
+    console.warn("creating...");
   }
 }
 
@@ -220,6 +223,7 @@ function initEvents() {
     if (e.target.matches("button.delete-btn")) {
       const id = e.target.dataset.id;
       console.warn("delete %o", id);
+      mask($("#teamsForm"));
       deleteTeamRequest(id, status => {
         console.info("delete callback %o", status);
         if (status.success) {
@@ -234,15 +238,15 @@ function initEvents() {
   });
 }
 
-mask($("#teamsForm"));
-loadTeams().then(() => {
-  unmask($("#teamsForm"));
-});
 initEvents();
+loadTeams();
 
-sleep(5000).then(() => {
-  $("#teamsForm").classList.remove("loading-mask");
-  console.info("ready");
-});
-// const s = sleep(2000);
-// console.info("s", s);
+// var p = sleep(5000);
+// p.then(() => {
+//   $("#teamsForm").classList.remove("loading-mask");
+//   console.warn("ready");
+// });
+// console.info("after sleep", p);
+
+// const p2 = await sleep(5000);
+// console.info("after sleep2"), p2;
