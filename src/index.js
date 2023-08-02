@@ -158,9 +158,15 @@ function onSubmit(e) {
     updateTeamRequest(team).then(status => {
       console.warn("updated", status);
       if (status.success) {
-        //window.location.reload();
-        loadTeams();
-        //$("#teamsForm").reset();
+        //loadTeams();
+        const edited = allTeams.find(t => t.id === team.id);
+        edited.promotion = team.promotion;
+        edited.members = team.members;
+        edited.name = team.name;
+        edited.url = team.url;
+        console.info("edited", edited, "vs", team);
+        allTeams = [...allTeams];
+        renderTeams(allTeams);
         setInputsDisable(false);
         editId = "";
       }
@@ -170,13 +176,9 @@ function onSubmit(e) {
     createTeamRequest(team).then(status => {
       console.warn("created", status);
       if (status.success) {
-        //window.location.reload();
-        //loadTeams();
         team.id = status.id;
-        //allTeams.push(team);
         allTeams = [...allTeams, team];
         renderTeams(allTeams);
-        //console.info(allTeams);
         $("#teamsForm").reset();
       }
     });
