@@ -90,6 +90,10 @@ h2 {
   width: 90px;
 }
 
+.select-all-col {
+  width: 40px;
+}
+
 .action-btn {
   min-width: 34px;
   cursor: pointer;
