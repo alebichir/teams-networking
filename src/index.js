@@ -21,8 +21,6 @@ function stringToColour(str) {
 }
 
 function getTeamAsHTML(team) {
-  // const id = team.id;
-  // const url = team.url;
   const { id, url } = team;
   const displayUrl = url.startsWith("https://github.com/") ? url.substring(19) : url;
   return `<tr>
@@ -41,8 +39,6 @@ function getTeamAsHTML(team) {
 }
 
 function getTeamAsHTMLInputs({ promotion, members, name, url }) {
-  //console.info("inputs", arguments[0]);
-  //const { promotion, members, name, url } = team;
   return `<tr>
     <td style="text-align: center"><input type="checkbox" name="selected"></td>
     <td><input value="${promotion}" type="text" name="promotion" placeholder="Enter Promotion" required /></td>
@@ -60,14 +56,14 @@ let previewTeams = [];
 function renderTeams(teams, editId) {
   console.time("check");
   if (!editId && teams === previewTeams) {
-    //console.warn("same teams already rendered");
+    console.warn("same teams already rendered");
     console.timeEnd("check");
     return;
   }
   if (!editId && teams.length === previewTeams.length) {
     const sameContent = previewTeams.every((team, i) => team === teams[i]);
     if (sameContent) {
-      //console.info("sameContent");
+      console.info("sameContent");
       console.timeEnd("check");
       return;
     }
@@ -79,7 +75,6 @@ function renderTeams(teams, editId) {
   const htmlTeams = teams.map(team => {
     return team.id === editId ? getTeamAsHTMLInputs(team) : getTeamAsHTML(team);
   });
-  //console.warn(htmlTeams);
   $("#teamsTable tbody").innerHTML = htmlTeams.join("");
   addTitleToOverflowCells();
   console.timeEnd("render");
@@ -87,7 +82,6 @@ function renderTeams(teams, editId) {
 
 function addTitleToOverflowCells() {
   const cells = document.querySelectorAll("#teamsTable td");
-  //console.warn("cells", cells);
   cells.forEach(cell => {
     cell.title = cell.offsetWidth < cell.scrollWidth ? cell.textContent : "";
   });
@@ -117,7 +111,6 @@ function getTeamValues(parent) {
 }
 
 async function onSubmit(e) {
-  //console.warn("submit", e);
   e.preventDefault();
 
   console.warn("update or create", editId);
@@ -128,18 +121,10 @@ async function onSubmit(e) {
 
   if (editId) {
     team.id = editId;
-    console.warn("update...", team);
-
     const { success } = await updateTeamRequest(team);
     if (success) {
-      //loadTeams();
       allTeams = allTeams.map(t => {
-        // console.info(t.id === team.id, t.promotion);
         if (t.id === team.id) {
-          // var a = { x: 1, y: 2 };
-          // var b = { y: 3, z: 4 };
-          // var c = { ...a, ...b }; -> 1 3 4
-          //console.warn("updated %o ->%o", t, team);
           return {
             ...t,
             ...team
@@ -147,18 +132,10 @@ async function onSubmit(e) {
         }
         return t;
       });
-      //allTeams = [...allTeams];
       console.info(allTeams);
-      renderTeams(allTeams);
       setInputsDisable(false);
       editId = "";
     }
-    unmask(form);
-
-    // updateTeamRequest(team).then(({ success }) => {
-    // ...
-    // console.warn("updated", status);
-    // });
   } else {
     console.warn("create...", team);
     const { success, id } = await createTeamRequest(team);
@@ -166,12 +143,11 @@ async function onSubmit(e) {
     if (success) {
       team.id = id;
       allTeams = [...allTeams, team];
-      renderTeams(allTeams);
       $(form).reset();
     }
-    unmask(form);
-    console.warn("creating...");
   }
+  renderTeams(allTeams);
+  unmask(form);
 }
 
 function startEdit(id) {
@@ -190,7 +166,7 @@ function startEdit(id) {
 }
 
 function setInputsDisable(disabled) {
-  document.querySelectorAll("tfoot input").forEach(input => {
+  document.querySelectorAll("tfoot input, tfoot button").forEach(input => {
     input.disabled = disabled;
   });
 }
