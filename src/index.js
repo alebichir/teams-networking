@@ -186,11 +186,16 @@ function filterElements(teams, search) {
 
 //use tag <mark>
 function initEvents() {
-  function removeSelected() {
+  async function removeSelected() {
+    mask("#main");
     const selected = document.querySelectorAll("input[name=selected]:checked");
     console.info("selected checkboxes", selected, selected[0].value);
     const ids = [...selected].map(input => input.value);
-    console.warn(ids);
+    const promises = ids.map(id => deleteTeamRequest(id));
+    const responses = await Promise.allSettled(promises);
+    //console.warn("ids", responses);
+    unmask("#main");
+    loadTeams();
   }
 
   $("#removeSelected").addEventListener("click", removeSelected);
