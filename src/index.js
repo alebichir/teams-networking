@@ -161,16 +161,15 @@ async function onSubmit(e) {
     // });
   } else {
     console.warn("create...", team);
-    createTeamRequest(team).then(({ success, id }) => {
-      console.warn("created!");
-      if (success) {
-        team.id = id;
-        allTeams = [...allTeams, team];
-        renderTeams(allTeams);
-        $(form).reset();
-      }
-      unmask(form);
-    });
+    const { success, id } = await createTeamRequest(team);
+    console.warn("created!");
+    if (success) {
+      team.id = id;
+      allTeams = [...allTeams, team];
+      renderTeams(allTeams);
+      $(form).reset();
+    }
+    unmask(form);
     console.warn("creating...");
   }
 }
