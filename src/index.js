@@ -116,7 +116,7 @@ function getTeamValues(parent) {
   return team;
 }
 
-function onSubmit(e) {
+async function onSubmit(e) {
   //console.warn("submit", e);
   e.preventDefault();
 
@@ -129,32 +129,36 @@ function onSubmit(e) {
   if (editId) {
     team.id = editId;
     console.warn("update...", team);
-    updateTeamRequest(team).then(({ success }) => {
-      //console.warn("updated", status);
-      if (success) {
-        //loadTeams();
-        allTeams = allTeams.map(t => {
-          // console.info(t.id === team.id, t.promotion);
-          if (t.id === team.id) {
-            // var a = { x: 1, y: 2 };
-            // var b = { y: 3, z: 4 };
-            // var c = { ...a, ...b }; -> 1 3 4
-            //console.warn("updated %o ->%o", t, team);
-            return {
-              ...t,
-              ...team
-            };
-          }
-          return t;
-        });
-        //allTeams = [...allTeams];
-        console.info(allTeams);
-        renderTeams(allTeams);
-        setInputsDisable(false);
-        editId = "";
-      }
-      unmask(form);
-    });
+
+    const { success } = await updateTeamRequest(team);
+    if (success) {
+      //loadTeams();
+      allTeams = allTeams.map(t => {
+        // console.info(t.id === team.id, t.promotion);
+        if (t.id === team.id) {
+          // var a = { x: 1, y: 2 };
+          // var b = { y: 3, z: 4 };
+          // var c = { ...a, ...b }; -> 1 3 4
+          //console.warn("updated %o ->%o", t, team);
+          return {
+            ...t,
+            ...team
+          };
+        }
+        return t;
+      });
+      //allTeams = [...allTeams];
+      console.info(allTeams);
+      renderTeams(allTeams);
+      setInputsDisable(false);
+      editId = "";
+    }
+    unmask(form);
+
+    // updateTeamRequest(team).then(({ success }) => {
+    // ...
+    // console.warn("updated", status);
+    // });
   } else {
     console.warn("create...", team);
     createTeamRequest(team).then(({ success, id }) => {
