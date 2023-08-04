@@ -2,6 +2,8 @@ import "./style.css";
 import { $, mask, sleep, unmask } from "./utilities";
 import { createTeamRequest, deleteTeamRequest, updateTeamRequest, loadTeamsRequest } from "./middleware";
 
+const form = "#teamsForm";
+
 let allTeams = [];
 let editId;
 
@@ -92,12 +94,12 @@ function addTitleToOverflowCells() {
 }
 
 async function loadTeams() {
-  mask("#teamsForm");
+  mask(form);
   const teams = await loadTeamsRequest();
   console.warn("teams", teams);
   allTeams = teams;
   renderTeams(teams);
-  unmask("#teamsForm");
+  unmask(form);
 }
 
 function getTeamValues(parent) {
@@ -121,6 +123,8 @@ function onSubmit(e) {
   console.warn("update or create", editId);
 
   const team = getTeamValues(editId ? "tbody" : "tfoot");
+
+  mask(form);
 
   if (editId) {
     team.id = editId;
@@ -149,6 +153,7 @@ function onSubmit(e) {
         setInputsDisable(false);
         editId = "";
       }
+      unmask(form);
     });
   } else {
     console.warn("create...", team);
@@ -158,8 +163,9 @@ function onSubmit(e) {
         team.id = id;
         allTeams = [...allTeams, team];
         renderTeams(allTeams);
-        $("#teamsForm").reset();
+        $(form).reset();
       }
+      unmask(form);
     });
     console.warn("creating...");
   }
@@ -207,8 +213,8 @@ function initEvents() {
     console.info("search", search, teams);
     renderTeams(teams);
   });
-  $("#teamsForm").addEventListener("submit", onSubmit);
-  $("#teamsForm").addEventListener("reset", e => {
+  $(form).addEventListener("submit", onSubmit);
+  $(form).addEventListener("reset", e => {
     console.info("reset", editId);
     if (editId) {
       //console.warn("cancel edit");
@@ -223,7 +229,7 @@ function initEvents() {
     if (e.target.matches("button.delete-btn")) {
       const id = e.target.dataset.id;
       console.warn("delete %o", id);
-      mask("#teamsForm");
+      mask(form);
       deleteTeamRequest(id, status => {
         console.info("delete callback %o", status);
         if (status.success) {
