@@ -24,7 +24,7 @@ function getTeamAsHTML(team) {
   const { id, url } = team;
   const displayUrl = url.startsWith("https://github.com/") ? url.substring(19) : url;
   return `<tr>
-  <td style="text-align: center"><input type="checkbox" name="selected" value="${team.id}"></td>
+  <td style="text-align: center"><input type="checkbox" name="selected" value="${id}"></td>
   <td><span class="circle-bullet" style="background: ${stringToColour(team.promotion)};"></span>${team.promotion}</td>
   <td>${team.members}</td>
   <td>${team.name}</td>
@@ -186,6 +186,15 @@ function filterElements(teams, search) {
 
 //use tag <mark>
 function initEvents() {
+  function removeSelected() {
+    const selected = document.querySelectorAll("input[name=selected]:checked");
+    console.info("selected checkboxes", selected, selected[0].value);
+    const ids = [...selected].map(input => input.value);
+    console.warn(ids);
+  }
+
+  $("#removeSelected").addEventListener("click", removeSelected);
+
   $("#search").addEventListener("input", e => {
     const search = e.target.value;
     const teams = filterElements(allTeams, search);
