@@ -166,7 +166,6 @@ function setInputsDisable(disabled) {
 function filterElements(teams, search) {
   search = search.toLowerCase();
   return teams.filter(({ promotion, members, name, url }) => {
-    //console.info("search %o in %o", search, team.promotion);
     return (
       promotion.toLowerCase().includes(search) ||
       members.toLowerCase().includes(search) ||
@@ -185,7 +184,6 @@ function initEvents() {
     const ids = [...selected].map(input => input.value);
     const promises = ids.map(id => deleteTeamRequest(id));
     const responses = await Promise.allSettled(promises);
-    //console.warn("ids", responses);
     unmask("#main");
     loadTeams();
   }
@@ -210,7 +208,6 @@ function initEvents() {
   $(form).addEventListener("reset", e => {
     console.info("reset", editId);
     if (editId) {
-      //console.warn("cancel edit");
       allTeams = [...allTeams];
       renderTeams(allTeams, -1); // use -1 to force render
       setInputsDisable(false);
@@ -221,14 +218,11 @@ function initEvents() {
   $("#teamsTable tbody").addEventListener("click", async e => {
     if (e.target.matches("button.delete-btn")) {
       const id = e.target.dataset.id;
-      console.warn("delete %o", id);
       mask(form);
       const status = await deleteTeamRequest(id);
       console.info("delete callback %o", status);
       if (status.success) {
-        //window.location.reload(); //v.1
-        //loadTeams(); //v.2
-        allTeams = allTeams.filter(team => team.id !== id); //v.3
+        allTeams = allTeams.filter(team => team.id !== id);
       }
       renderTeams(allTeams);
       unmask(form);
