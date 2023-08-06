@@ -186,3 +186,8 @@ footer a {
   line-height: initial;
   font-size: initial;
 }
+
+mark {
+  background: orange;
+  color: black;
+}

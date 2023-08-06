@@ -1,8 +1,10 @@
 import "./style.css";
 import { $, mask, sleep, unmask } from "./utilities";
 import { createTeamRequest, deleteTeamRequest, updateTeamRequest, loadTeamsRequest } from "./middleware";
-//import { debounce } from "lodash"; //not ok - is importing all functions
-import { debounce } from "lodash/debounce";
+//import { debounce } from "lodash"; // not ok - is importing all functions
+import debounce from "lodash/debounce";
+import Mark from "mark.js";
+
 const form = "#teamsForm";
 
 let allTeams = [];
@@ -26,9 +28,15 @@ function getTeamAsHTML(team) {
   const displayUrl = url.startsWith("https://github.com/") ? url.substring(19) : url;
   return `<tr>
   <td style="text-align: center"><input type="checkbox" name="selected" value="${id}"></td>
-  <td><span class="circle-bullet" style="background: ${stringToColour(team.promotion)};"></span>${team.promotion}</td>
-  <td>${team.members}</td>
-  <td>${team.name}</td>
+  <td>
+    <span class="circle-bullet" style="background: ${stringToColour(team.promotion)};"></span>${team.promotion}
+  </td>
+  <td>
+    ${team.members}
+  </td>
+  <td>
+    ${team.name}
+  </td>
   <td>
     <a href="${url}" target="_blank">${displayUrl}</a>
   </td>
@@ -176,7 +184,6 @@ function filterElements(teams, search) {
   });
 }
 
-//use tag <mark>
 function initEvents() {
   async function removeSelected() {
     mask("#main");
@@ -191,13 +198,23 @@ function initEvents() {
 
   $("#removeSelected").addEventListener("click", removeSelected);
 
+  var markInstance = new Mark($(".context"));
+  var keywordInput = $("#search");
+  function performMark() {
+    var keyword = keywordInput.value;
+    markInstance.unmark().mark(keyword);
+  }
+  //keywordInput.addEventListener("input", performMark);
+
   $("#search").addEventListener(
     "input",
     debounce(e => {
       const search = e.target.value;
       const teams = filterElements(allTeams, search);
       console.info("search", search, teams);
+      keywordInput.addEventListener("input", performMark);
       renderTeams(teams);
+      performMark();
     }, 200)
   );
 

@@ -22,13 +22,13 @@
     "css-loader": "^6.8.1",
     "html-loader": "^4.2.0",
     "html-webpack-plugin": "^5.5.3",
-    "mark.js": "^8.11.1",
     "style-loader": "^3.3.3",
     "webpack": "^5.88.1",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "mark.js": "^8.11.1"
   }
 }
