@@ -193,7 +193,7 @@ function initEvents() {
     const promises = ids.map(id => deleteTeamRequest(id));
     const responses = await Promise.allSettled(promises);
     unmask("#main");
-    loadTeams();
+    await loadTeams();
   }
 
   $("#removeSelected").addEventListener("click", removeSelected);
