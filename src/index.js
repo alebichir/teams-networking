@@ -184,18 +184,18 @@ function filterElements(teams, search) {
   });
 }
 
-function initEvents() {
-  async function removeSelected() {
-    mask("#main");
-    const selected = document.querySelectorAll("input[name=selected]:checked");
-    console.info("selected checkboxes", selected, selected[0].value);
-    const ids = [...selected].map(input => input.value);
-    const promises = ids.map(id => deleteTeamRequest(id));
-    const responses = await Promise.allSettled(promises);
-    unmask("#main");
-    await loadTeams();
-  }
+async function removeSelected() {
+  mask("#main");
+  const selected = document.querySelectorAll("input[name=selected]:checked");
+  console.info("selected checkboxes", selected, selected[0].value);
+  const ids = [...selected].map(input => input.value);
+  const promises = ids.map(id => deleteTeamRequest(id));
+  const responses = await Promise.allSettled(promises);
+  unmask("#main");
+  await loadTeams();
+}
 
+function initEvents() {
   $("#removeSelected").addEventListener("click", removeSelected);
 
   var markInstance = new Mark($(".context"));
